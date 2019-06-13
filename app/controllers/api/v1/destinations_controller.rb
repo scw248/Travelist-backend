@@ -48,6 +48,6 @@ class Api::V1::DestinationsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def destination_params
-      params.require(:destination).permit(:name, :image, :votes, :price, :description)
+      params.require(:destination).permit(:name, :image, :votes, :price, :description, :city, :state, :country)
     end
 end
