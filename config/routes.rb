@@ -6,19 +6,11 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
-      resources :users do
-        resources :destinations, only: [:index, :show] do
-          resources :categories
-        end
-      end
-      resources :destinations do
-        resources :categories, only: [:index]
-      end
-      resources :categories do
-        resources :destinations, only: [:index]
+      resources :users
+      resources :destinations
+      resources :categories
       end
     end
-  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
