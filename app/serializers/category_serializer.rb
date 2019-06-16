@@ -1,5 +1,5 @@
-class UserSerializer
+class CategorySerializer
   include FastJsonapi::ObjectSerializer
-  attributes :email
+  attributes :name
   has_many :destinations, serializer: DestinationSerializer
 end
