@@ -3,9 +3,15 @@ class Api::V1::DestinationsController < ApplicationController
 
     # GET /destinations
     def index
-      @destinations = Destination.all
-  
-      render json: @destinations
+
+      if logged_in?
+        @destinations = Destination.all
+        render json: @destinations
+      else
+        render json: {
+          error: "You Are Currently Not Logged In"
+        }
+      end
     end
   
     # GET /users/1/destinations/1
