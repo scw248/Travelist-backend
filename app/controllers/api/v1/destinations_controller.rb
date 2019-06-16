@@ -6,7 +6,7 @@ class Api::V1::DestinationsController < ApplicationController
 
       if logged_in?
         @destinations = Destination.all
-        render json: @destinations
+        render json: DestinationSerializer.new(@destinations)
       else
         render json: {
           error: "You Are Currently Not Logged In"

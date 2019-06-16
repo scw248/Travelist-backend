@@ -3,12 +3,17 @@ class Api::V1::CategoriesController < ApplicationController
 
     # GET /categories
     def index
-      @categories = Category.all
-  
-      render json: @categories
+      if logged_in?
+        @categories = Category.all
+        render json: CategorySerializer.new(@categories)
+      else
+        render json: {
+          error: "You Are Currently Not Logged In"
+        }
+      end
     end
   
-    # GET /categories/1/destinations
+    # GET /categories/1/categories
     def show
       render json: @category 
       #add status functionality here at some point
