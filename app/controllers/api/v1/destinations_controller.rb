@@ -1,17 +1,23 @@
 class Api::V1::DestinationsController < ApplicationController
   before_action :set_destination, only: [:show, :update, :destroy]
 
-    # GET /destinations
+  # GET /destinations
+  def destinations
+    if logged_in?
+      @destinations = Destination.all
+      render json: DestinationSerializer.new(@destinations)
+    else
+      render json: {
+        error: "You Are Currently Not Logged In"
+      }
+    end
+  end
+
+
+    # GET /users/1/destinations
     def index
 
-      if logged_in?
-        @destinations = Destination.all
-        render json: DestinationSerializer.new(@destinations)
-      else
-        render json: {
-          error: "You Are Currently Not Logged In"
-        }
-      end
+      
     end
   
     # GET /users/1/destinations/1
