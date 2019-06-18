@@ -6,9 +6,16 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
-      resources :users
-      resources :destinations
-      resources :categories
+      resources :users do
+        resources :destinations
+      end
+
+      resources :destinations, only: [:index] do
+        resources :categories, only: [:show]
+      end
+
+      resources :categories, only: [:index, :show]
+        resources :destinations, only: [:index]
       end
     end
 
