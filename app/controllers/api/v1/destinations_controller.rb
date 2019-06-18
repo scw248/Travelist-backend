@@ -17,7 +17,14 @@ class Api::V1::DestinationsController < ApplicationController
     # GET /users/1/destinations
     def index
 
-      
+      if logged_in?
+        @destinations = current_user.destinations
+        render json: TripSerializer.new(@destinations)
+      else
+        render json: {
+          error: "You must be logged in to see trips"
+        }
+      end
     end
   
     # GET /users/1/destinations/1
