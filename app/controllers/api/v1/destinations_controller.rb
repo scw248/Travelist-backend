@@ -19,7 +19,7 @@ class Api::V1::DestinationsController < ApplicationController
 
       if logged_in?
         @destinations = current_user.destinations
-        render json: TripSerializer.new(@destinations)
+        render json: DestinationSerializer.new(@destinations)
       else
         render json: {
           error: "You must be logged in to see trips"
@@ -67,6 +67,6 @@ class Api::V1::DestinationsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def destination_params
-      params.require(:destination).permit(:name, :image, :votes, :price, :description, :city, :state, :country)
+      params.require(:destination).permit(:name, :image, :price, :description, :city, :state, :country)
     end
 end

@@ -1,12 +1,12 @@
 class DestinationSerializer
   include FastJsonapi::ObjectSerializer
   attributes :name, :votes, :price, :description, :city, :state, :country, :image
-  # has_many :categories, serializer: CategorySerializer
+  has_many :categories, serializer: CategorySerializer
 
   attribute :categories do |destination|
-    destination.categories.map do |cat|
+    destination.categories.map do |category|
       {
-        name: cat.name
+        name: category.name
       }
     end
   end
