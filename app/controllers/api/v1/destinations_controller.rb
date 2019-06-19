@@ -35,12 +35,15 @@ class Api::V1::DestinationsController < ApplicationController
   
     # POST /users/1/destinations
     def create
-      @destination = Destination.new(destination_params)
+      @destination = current_user.destinations.build(destination_params)
   
       if @destination.save
-        render json: @destination, status: :created, destination: @destination
+        render json: DestinationSerializer.new(@destination), status: :created
       else
-        render json: @destination.errors, status: :unprocessable_entity
+        resp = {
+          error: @destination.errors.full_messages.to_sentence
+        }
+        render json: resp, status: :unprocessable_entity
       end
     end
   
