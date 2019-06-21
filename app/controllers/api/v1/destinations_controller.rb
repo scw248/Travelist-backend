@@ -36,7 +36,6 @@ class Api::V1::DestinationsController < ApplicationController
     # POST /users/1/destinations
     def create
       @destination = current_user.destinations.build(destination_params)
-  
       if @destination.save
         render json: DestinationSerializer.new(@destination), status: :created
       else
@@ -70,6 +69,6 @@ class Api::V1::DestinationsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def destination_params
-      params.require(:destination).permit(:name, :image, :price, :description, :city, :state, :country)
+      params.permit(:name, :image, :price, :description, :city, :state, :country)
     end
 end

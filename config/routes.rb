@@ -12,7 +12,7 @@ Rails.application.routes.draw do
         resources :destinations
       end
 
-      resources :destinations, only: [:index] do
+      resources :destinations, only: [:index, :create] do
         resources :categories, only: [:show]
       end
 
