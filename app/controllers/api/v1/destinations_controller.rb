@@ -57,7 +57,7 @@ class Api::V1::DestinationsController < ApplicationController
   
     # DELETE /users/1/destinations/1
     def destroy
-      @destination.destroy
+      render json: @destination.destroy
     end
   
 
