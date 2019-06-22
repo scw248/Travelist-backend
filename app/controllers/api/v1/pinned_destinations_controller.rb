@@ -1,12 +1,12 @@
 class Api::V1::DestinationsController < ApplicationController
-  before_action :set_destination, only: [:show, :update, :destroy]
+  before_action :set_pinned_destination, only: [:show, :update, :destroy]
 
     # GET /users/1/pinned_destinations
     def index
 
       if logged_in?
-        @destinations = current_user.destinations
-        render json: DestinationSerializer.new(@destinations)
+        @pinned_destinations = current_user.pinned_destinations
+        render json: Pinned_DestinationSerializer.new(@pinned_destinations)
       else
         render json: {
           error: "You must be logged in to see trips"
@@ -16,18 +16,18 @@ class Api::V1::DestinationsController < ApplicationController
   
     # GET /users/1/pinned_destinations/1
     def show
-      render json: @destination 
+      render json: @pinned_destination 
       #add status functionality here at some point
     end
   
     # POST /users/1/pinned_destinations
     def create
-      @destination = current_user.destinations.build(destination_params)
-      if @destination.save
-        render json: DestinationSerializer.new(@destination), status: :created
+      @pinned_destination = current_user.pinned_destinations.build(pinned_destination_params)
+      if @pinned_destination.save
+        render json: Pinned_DestinationSerializer.new(@pinned_destination), status: :created
       else
         resp = {
-          error: @destination.errors.full_messages.to_sentence
+          error: @pinned_destination.errors.full_messages.to_sentence
         }
         render json: resp, status: :unprocessable_entity
       end
@@ -35,27 +35,27 @@ class Api::V1::DestinationsController < ApplicationController
   
     # PATCH/PUT /users/1/pinned_destinations/1
     def update
-      if @destination.update(destination_params)
-        render json: @destination
+      if @pinned_destination.update(pinned_destination_params)
+        render json: @pinned_destination
       else
-        render json: @destination.errors, status: :unprocessable_entity
+        render json: @pinned_destination.errors, status: :unprocessable_entity
       end
     end
   
     # DELETE /users/1/pinned_destinations/1
     def destroy
-      render json: @destination.destroy
+      render json: @pinned_destination.destroy
     end
   
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_destination
-      @destination = Destination.find(params[:id])
+    def set_pinned_destination
+      @pinned_destination = Pinned_Destination.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
-    def destination_params
+    def pinned_destination_params
       params.permit(:name, :image, :price, :description, :city, :state, :country)
     end
 end
