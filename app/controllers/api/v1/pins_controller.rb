@@ -1,9 +1,21 @@
-class PinsController < ApplicationController
+class Api::V1::PinsController < ApplicationController
   before_action :set_destination, only: [:destroy]
 
+  # GET /users/1/pinned_destinations
+  def index
+
+    if logged_in?
+      @pins= current_user.pins
+      render json: DestinationSerializer.new(@pins)
+    else
+      render json: {
+        error: "You must be logged in to see destinations"
+      }
+    end
+  end
 
    # POST /users/1/pinned_destinations
-   def create
+  def create
     @pin = current_user.pins.build(params)
     if @pin.save
       render json: PinSerializer.new(@pin), status: :created
