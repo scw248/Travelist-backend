@@ -4,7 +4,7 @@ class PinsController < ApplicationController
 
    # POST /users/1/pinned_destinations
    def create
-    @pin = current_user.pins.build(destination_id: params[:destination_id])
+    @pin = current_user.pins.build(params)
     if @pin.save
       render json: PinSerializer.new(@pin), status: :created
     else
@@ -24,11 +24,11 @@ class PinsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_pin
-    @pin = Pin.find(params[:destination_id])
+    @pin = Pin.find(params[:destination_id], user: current_user)
   end
 
   # Only allow a trusted parameter "white list" through.
   def pin_params
-    params.permit(:name, :image, :price, :description, :city, :state, :country)
+    params.permit(:destination_id)
   end
 end
