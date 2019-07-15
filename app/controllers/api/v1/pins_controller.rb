@@ -5,8 +5,8 @@ class Api::V1::PinsController < ApplicationController
   def index
 
     if logged_in?
-      @pins= current_user.pins
-      render json: DestinationSerializer.new(@pins)
+      @pins = current_user.pins
+      render json: PinSerializer.new(@pins)
     else
       render json: {
         error: "You must be logged in to see destinations"
