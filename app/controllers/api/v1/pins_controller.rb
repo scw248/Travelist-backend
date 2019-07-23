@@ -1,5 +1,5 @@
 class Api::V1::PinsController < ApplicationController
-  before_action :set_destination, only: [:destroy]
+  before_action :set_pin, only: [:destroy]
 
   # GET /users/1/pinned_destinations
   def index
@@ -36,7 +36,7 @@ class Api::V1::PinsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_pin
-    @pin = Pin.find(params[:destination_id], user: current_user)
+    @pin = Pin.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
