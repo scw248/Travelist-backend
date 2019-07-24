@@ -16,6 +16,7 @@ class Api::V1::PinsController < ApplicationController
 
    # POST /users/1/pinned_destinations
   def create
+    binding.pry
     @pin = current_user.pins.build(pin_params)
     if @pin.save
       render json: PinSerializer.new(@pin), status: :created
@@ -41,6 +42,6 @@ class Api::V1::PinsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def pin_params
-    params.permit(:destination_id, :user_id)
+    params.permit(:destination_id, :user_id, :name, :image, :price, :description, :city, :state, :country)
   end
 end
